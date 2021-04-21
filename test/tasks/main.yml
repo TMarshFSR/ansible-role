@@ -1,0 +1,15 @@
+---
+# tasks file for test
+- name: Check for Python
+    raw: test -e /usr/bin/python
+    changed_when: false
+    failed_when: false
+    register: check_python
+
+- name: install python
+    raw: apt install python3
+    when: check_python.rc != 0 
+
+- name: install pytest
+  raw: apt install pytest
+  when: check_python.rc != 0
